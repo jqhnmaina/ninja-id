@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:http/http.dart';
 import 'dart:convert';
 
@@ -14,6 +15,11 @@ class Loading extends StatefulWidget {
 class _LoadingState extends State<Loading> {
   String time = 'loading';
 
+  Widget loader = SpinKitFadingCube(
+    color: Colors.white,
+    size: 50.0,
+  );
+
   void setUpWorldTime() async {
     WorldTime instance = WorldTime(
         location: "Africa Nairobi", url: 'Africa/Nairobi', flag: 'kenya.png');
@@ -28,6 +34,14 @@ class _LoadingState extends State<Loading> {
           'location': instance.location,
           'flag': instance.flag
         });
+      } else {
+        setState(() {
+          loader = Text('Failed to load time data', style: TextStyle(
+              color: Colors.white,
+              fontSize: 20,
+              letterSpacing: 2
+          ));
+        });
       }
     });
   }
@@ -41,11 +55,10 @@ class _LoadingState extends State<Loading> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-          child: Padding(
-        padding: const EdgeInsets.all(50.0),
-        child: Text(time),
-      )),
+      backgroundColor: Colors.blue[900],
+      body: Center(
+        child: loader
+      )
     );
   }
 }

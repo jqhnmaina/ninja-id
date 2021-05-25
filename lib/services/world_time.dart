@@ -1,5 +1,6 @@
 import 'package:http/http.dart';
 import 'dart:convert';
+import 'package:intl/intl.dart';
 
 class WorldTime {
   String location; // location name for the UI
@@ -25,13 +26,12 @@ class WorldTime {
       now = now.add(Duration(hours: int.parse(offset)));
 
       // set the time property
-      time = now.toString();
+      time = DateFormat.jm().format(now);
     } else {
-      time = 'could not get time data';
       print('Request Failed with status code: ${response.statusCode}');
     }
-
   }
 }
 
-WorldTime instance = WorldTime(location: "Africa Nairobi", url: 'Africa/Nairobi', flag: 'kenya.png');
+WorldTime instance = WorldTime(
+    location: "Africa Nairobi", url: 'Africa/Nairobi', flag: 'kenya.png');
