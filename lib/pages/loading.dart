@@ -34,9 +34,26 @@ class _LoadingState extends State<Loading> {
         });
       } else {
         setState(() {
-          loader = Text('Failed to load time data',
+          loader = Column(
+            children: <Widget>[
+              Text('Failed to load time data',
               style: TextStyle(
-                  color: Colors.white, fontSize: 20, letterSpacing: 2));
+                  color: Colors.white, fontSize: 20, letterSpacing: 1)),
+              TextButton.icon(
+                onPressed: ()  {
+                },
+                icon: Icon(
+                  Icons.refresh_outlined,
+                  color: Colors.grey[300],
+                ),
+                label: Text(
+                  'Try Again',
+                  style: TextStyle(color: Colors.grey[300]),
+                ),
+              ),
+            ],
+
+          );
         });
       }
     });
