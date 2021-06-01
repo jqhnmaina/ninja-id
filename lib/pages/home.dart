@@ -12,10 +12,7 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    data = ModalRoute
-        .of(context)
-        .settings
-        .arguments;
+    data = data.isNotEmpty ? data : ModalRoute.of(context).settings.arguments;
 
     print(data);
 
@@ -38,18 +35,21 @@ class _HomeState extends State<Home> {
             child: Column(
               children: [
                 TextButton.icon(
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/location');
+                  onPressed: () async {
+                    dynamic result =
+                        await Navigator.pushNamed(context, '/location');
+                    print(result);
+                    setState(() {
+                      data = result;
+                    });
                   },
                   icon: Icon(
                     Icons.edit_location,
                     color: Colors.grey[300],
                   ),
                   label: Text(
-                      'Edit Location',
-                    style: TextStyle(
-                      color: Colors.grey[300]
-                    ),
+                    'Edit Location',
+                    style: TextStyle(color: Colors.grey[300]),
                   ),
                 ),
                 SizedBox(height: 20.0),
