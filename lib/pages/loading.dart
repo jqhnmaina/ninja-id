@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:http/http.dart';
-import 'dart:convert';
-
 import 'package:world_time/services/world_time.dart';
 
 class Loading extends StatefulWidget {
@@ -32,15 +29,14 @@ class _LoadingState extends State<Loading> {
         Navigator.pushReplacementNamed(context, '/home', arguments: {
           'time': instance.time,
           'location': instance.location,
-          'flag': instance.flag
+          'flag': instance.flag,
+          'isDaytime': instance.isDaytime
         });
       } else {
         setState(() {
-          loader = Text('Failed to load time data', style: TextStyle(
-              color: Colors.white,
-              fontSize: 20,
-              letterSpacing: 2
-          ));
+          loader = Text('Failed to load time data',
+              style: TextStyle(
+                  color: Colors.white, fontSize: 20, letterSpacing: 2));
         });
       }
     });
@@ -56,9 +52,7 @@ class _LoadingState extends State<Loading> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.blue[900],
-      body: Center(
-        child: loader
-      )
+      body: Center(child: loader),
     );
   }
 }
