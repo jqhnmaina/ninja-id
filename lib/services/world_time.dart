@@ -15,7 +15,7 @@ class WorldTime {
     var req = Uri.https('worldtimeapi.org', '/api/timezone/$url');
 
     // Await the http get response, then decode the json-formatted response.
-    try{
+    try {
       Response response = await get(req);
       if (response.statusCode == 200) {
         Map data = jsonDecode(response.body);
@@ -27,14 +27,14 @@ class WorldTime {
         DateTime now = DateTime.parse(datetime);
         now = now.add(Duration(hours: int.parse(offset)));
 
-        isDaytime = now.hour > 6 && now.hour < 20  ? true : false;
+        isDaytime = now.hour > 6 && now.hour < 20 ? true : false;
 
         // set the time property
         time = DateFormat.jm().format(now);
       } else {
         print('Request Failed with status code: ${response.statusCode}');
       }
-    } catch(e) {
+    } catch (e) {
       print("Failed to get time because: ${e.toString()}");
     }
   }

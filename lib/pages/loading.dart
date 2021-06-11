@@ -35,12 +35,22 @@ class _LoadingState extends State<Loading> {
       } else {
         setState(() {
           loader = Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Text('Failed to load time data',
-              style: TextStyle(
-                  color: Colors.white, fontSize: 20, letterSpacing: 1)),
+                  style: TextStyle(
+                      color: Colors.white, fontSize: 20, letterSpacing: 1)),
               TextButton.icon(
-                onPressed: ()  {
+                onPressed: () {
+                  setState(() {
+                    loader = SpinKitFadingCube(
+                      color: Colors.white,
+                      size: 50.0,
+                    );
+                  });
+
+                  // try fetching world time again using recursion
+                  setUpWorldTime();
                 },
                 icon: Icon(
                   Icons.refresh_outlined,
@@ -52,7 +62,6 @@ class _LoadingState extends State<Loading> {
                 ),
               ),
             ],
-
           );
         });
       }

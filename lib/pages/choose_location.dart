@@ -9,6 +9,10 @@ class ChooseLocation extends StatefulWidget {
 }
 
 class _ChooseLocationState extends State<ChooseLocation> {
+  final snackBar = SnackBar(
+    content: Text('Failed to get time data, Try Again Shortly!!'),
+  );
+
   List<WorldTime> locations = [
     WorldTime(url: 'Europe/London', location: 'London', flag: 'uk.png'),
     WorldTime(url: 'Europe/Berlin', location: 'Athens', flag: 'greece.png'),
@@ -23,6 +27,11 @@ class _ChooseLocationState extends State<ChooseLocation> {
   void updateTime(index) async {
     WorldTime instance = locations[index];
     await instance.getTime();
+
+    if (instance.time == null) {
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      return;
+    }
 
     Navigator.pop(context, {
       'time': instance.time,
